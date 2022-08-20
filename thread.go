@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Thread struct {
@@ -14,6 +15,16 @@ type Thread struct {
 	ResNum int
 	Src    string
 	BeID   string
+	Ikioi  float32
+}
+
+// 勢い計算 テスト可能にするため切り出し
+func ikioi(res int, time int64, now time.Time) float32 {
+	// 「5ちゃんねるからのお知らせ」 などの特殊なスレッドで現在時刻を上回った値が設定されていることがある
+	if time > now.Unix() {
+		return 0
+	}
+	return float32(res) / (float32(now.Unix()-time) / 86400)
 }
 
 func newThread(src string) (thread Thread, err error) {
@@ -41,5 +52,7 @@ func newThread(src string) (thread Thread, err error) {
 	} else {
 		thread.Title = a[2]
 	}
+	// 勢い
+	thread.Ikioi = ikioi(thread.ResNum, thread.Time, time.Now())
 	return
 }
