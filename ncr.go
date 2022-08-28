@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 // 数値文字参照をデコードする
 func decodeNCR(source string) (result string) {
 	re := regexp.MustCompile("&#[0-9]+;|&#x[0-9a-fA-F]+;")
-	result = re.ReplaceAllStringFunc(source, func(match string) string {
+	return re.ReplaceAllStringFunc(source, func(match string) string {
 		var cp int64
 		if match[2] == 0x78 {
 			cp, _ = strconv.ParseInt(match[3:len(match)-1], 16, 32)
@@ -20,6 +19,4 @@ func decodeNCR(source string) (result string) {
 
 		return fmt.Sprintf("%c", cp)
 	})
-	result = strings.ReplaceAll(result, "\u3000", "　")
-	return
 }

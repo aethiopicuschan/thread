@@ -32,7 +32,8 @@ func Get(board string) (threads []Thread, err error) {
 	if err != nil {
 		return
 	}
-	lines := strings.Split(decodeNCR(string(raw)), "\n")
+	str := unescapeHtml(decodeNCR(string(raw)))
+	lines := strings.Split(str, "\n")
 	for _, line := range lines {
 		thread, err := newThread(line)
 		if err == nil {
