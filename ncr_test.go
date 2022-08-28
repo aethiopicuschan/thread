@@ -11,4 +11,8 @@ func TestDecodeNCR(t *testing.T) {
 	if str != "家康の関東移封⚔左遷どころか大当たりだった🎯" {
 		t.Errorf("want \"家康の関東移封⚔左遷どころか大当たりだった🎯\", got \"%s\"", str)
 	}
+	str = thread.DecodeNCR("空\u3000白\u3000文\u3000字")
+	if str != "空　白　文　字" {
+		t.Errorf("want \"空　白　文　字\", got \"%s\"", str)
+	}
 }
