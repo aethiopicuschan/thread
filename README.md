@@ -1,5 +1,7 @@
 # aethiopicuschan/thread
 
+Now you can use [aethiopicuschan/tsubo](https://github.com/aethiopicuschan/tsubo) as better choise! Using this package is not recommended.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square)](/LICENSE)
 
 Golang library to get 5ch threads.
